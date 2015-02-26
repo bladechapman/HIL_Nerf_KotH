@@ -1,6 +1,8 @@
 
-$('#red').css({height: $(window).height()/2});
-$('#blue').css({height: $(window).height()/2});
+$('#red, #blue').css({
+	height: $(window).height()/2,
+	'line-height': $(window).height()/2 + 'px'
+});
 
 // get our websocket (automatically generated from server serving page)
 var socket = io();
@@ -16,7 +18,6 @@ $("#blue").click(function() {
 // respond to server events
 socket.on('tick', updateData)
 function updateData(data) {
-	console.log(data);
 	$('#red').html(data.red);
 	$('#blue').html(data.blue);
 }
