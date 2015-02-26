@@ -2,8 +2,13 @@ var express = require('express')
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var readline = require('readline');
 
 var html_dir = 'public';
+var rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout
+})
 
 // tell the app where to look for static files
 app.use(express.static(html_dir))
@@ -19,6 +24,18 @@ var cur_king = undefined;
 // our individual websocket environment
 io.on('connection', function(socket) {
 	console.log('client connected');
+
+	socket.on('authorize', function(data) {
+		rl.question('\nInteract request: authorize? [y/n]', function(response) {
+			if(response == 'y' || response == 'yes') {
+				socket.emit('authorize', 'accept');
+				console.log('authorized');
+			}
+			else {
+				console.log('auth refused');
+			}
+		})
+	})
 
 	socket.on('king', function(data) {
 		cur_king = data;
