@@ -1,0 +1,9 @@
+{
+  "name": "king-of-the-hill",
+  "version": "0.0.1",
+  "description": "Nerf King of the Hill - HackIllinois 2015",
+  "dependencies": {
+    "express": "^4.10.2",
+    "socket.io": "^1.3.4"
+  }
+}
