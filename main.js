@@ -29,6 +29,7 @@ io.on('connection', function(socket) {
 	})
 })
 
+// server keeps track of score - broadcasts this to all clients
 setInterval(function() {
 	if(cur_king == 'red') {red_score++; }
 	else if(cur_king == 'blue') {blue_score++; }

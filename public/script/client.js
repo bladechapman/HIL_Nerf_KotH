@@ -1,4 +1,6 @@
-console.log('loaded javascript');
+
+$('#red').css({height: $(window).height()/2});
+$('#blue').css({height: $(window).height()/2});
 
 // get our websocket (automatically generated from server serving page)
 var socket = io();
@@ -12,12 +14,9 @@ $("#blue").click(function() {
 })
 
 // respond to server events
-socket.on('init_data', updateData)
 socket.on('tick', updateData)
-
-
 function updateData(data) {
 	console.log(data);
-	$('#red_score').html('Red Score: ' + data.red);
-	$('#blue_score').html('Blue Score: ' + data.blue);
+	$('#red').html(data.red);
+	$('#blue').html(data.blue);
 }
