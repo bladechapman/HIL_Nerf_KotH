@@ -20,13 +20,16 @@ socket.on('client', function(data) {
 		if(res == 'accept') {
 			$("#red").click(function() {
 				socket.emit('king', 'red');
+				$("#red").addClass("king");
+				$("#blue").removeClass("king");
 			})
 			$("#blue").click(function() {
 				socket.emit('king', 'blue');
+				$("#blue").addClass("king");
+				$("#red").removeClass("king");
 			})
 		}
 	})
-
 	// respond to server events
 	socket.on('tick', updateData)
 	function updateData(data) {
