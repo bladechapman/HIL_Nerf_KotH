@@ -1,9 +1,4 @@
 
-// $('#red, #blue').css({
-// 	height: $(window).height()/2,
-// 	'line-height': $(window).height()/2 + 'px'
-// });
-
 // get our websocket (automatically generated from server serving page)
 var socket = io();
 
