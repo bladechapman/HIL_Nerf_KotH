@@ -18,6 +18,9 @@ app.get('/', function(req, res) {
 	res.sendFile('/index.html');
 })
 
+auth_cache = {};
+
+var client_count = 0;
 var blue_score = 0;
 var red_score = 0;
 var cur_king = undefined;
@@ -25,16 +28,12 @@ var cur_king = undefined;
 io.on('connection', function(socket) {
 	console.log('client connected');
 
+	socket.emit('client', client_count)
+	client_count++;
+
 	socket.on('authorize', function(data) {
-		rl.question('\nInteract request: authorize? [y/n]', function(response) {
-			if(response == 'y' || response == 'yes') {
-				socket.emit('authorize', 'accept');
-				console.log('authorized');
-			}
-			else {
-				console.log('auth refused');
-			}
-		})
+		console.log('authorize request for client ' + data);
+		auth_cache[data] = socket;
 	})
 
 	socket.on('king', function(data) {
@@ -44,6 +43,24 @@ io.on('connection', function(socket) {
 	socket.on('disconnect', function() {
 		console.log('client disconnected');
 	})
+})
+
+rl.on('line', function(line) {
+	var word_arr = line.trim().split(' ');
+	var target_sock = parseInt(word_arr[word_arr.length - 1]);
+
+	if(word_arr[0] == 'yes' && target_sock in auth_cache) {
+		auth_cache[target_sock].emit('authorize', 'accept');
+		console.log('client ' + target_sock + ' authorized');
+		delete auth_cache[target_sock];
+	}
+	else if(word_arr[0] == 'no' && target_sock in auth_cache) {
+		console.log('client ' + target_sock + ' denied');
+		delete auth_cache[target_sock];
+	}
+	else {
+		console.log('auth failed for');
+	}
 })
 
 // server keeps track of score - broadcasts this to all clients
