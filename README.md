@@ -39,3 +39,7 @@ stop_all
 start_all
 ```
 
+[Node.js]: http://nodejs.org/
+[npm]: https://www.npmjs.com/
+[Express.js]: http://expressjs.com/
+[Socket.io]: http://socket.io/
