@@ -45,6 +45,9 @@ io.on('connection', function(socket) {
 	})
 })
 
+// server keeps track of score - broadcasts this to all clients
+var interval = setInterval(emit, 1000);
+
 rl.on('line', function(line) {
 	var word_arr = line.trim().split(' ');
 	var target_sock = parseInt(word_arr[word_arr.length - 1]);
@@ -58,13 +61,20 @@ rl.on('line', function(line) {
 		console.log('client ' + target_sock + ' denied');
 		delete auth_cache[target_sock];
 	}
+	else if(word_arr[0] == 'stop_all') {
+		clearInterval(interval);
+		console.log('game stopped');
+	}
+	else if(word_arr[0] == 'start_all') {
+		interval = setInterval(emit, 1000);
+		console.log('game start');
+	}
 	else {
-		console.log('auth failed for');
+		console.log('unaccepted input');
 	}
 })
 
-// server keeps track of score - broadcasts this to all clients
-setInterval(function() {
+function emit() {
 	if(cur_king == 'red') {red_score++; }
 	else if(cur_king == 'blue') {blue_score++; }
 	else {return; }
@@ -74,7 +84,7 @@ setInterval(function() {
 		'blue' : blue_score,
 		'king' : cur_king
 	})
-}, 1000);
+}
 
 // start the server
 http.listen(3000, function() {
