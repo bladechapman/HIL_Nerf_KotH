@@ -1,15 +1,13 @@
 # HIL_Nerf_KotH
-======
-#Description
+
+##Description
 A web-app version of King of the Hill for large scale nerf games. This encompasses a web-client and server-side game controls. All clients are synced, and clients are individually authorized to prevent cheating. Originally developed for HackIllinois 2015's nerf event.
-======
 
 ##Installation
 Use your preferred OS' package manager to ensure [Node.js] and [npm] are installed. King of the Hill requires [Express.js] and [Socket.io]. To get these packages, `cd` into the directory containing `package.json` and install:
 ```
 npm install
 ```
-=====
 ##Usage
 To start a new game, run `main.js` on a server with an exposed IP (an exposed IP can be attained via [DigitalOcean]). This will start the web-app's server, listening for clients on port `3000` of your server.
 ```
