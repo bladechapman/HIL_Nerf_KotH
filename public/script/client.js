@@ -1,4 +1,9 @@
 
+$('html, body').css({
+    'overflow': 'hidden',
+    'height': '100%'
+});
+
 // get our websocket (automatically generated from server serving page)
 var socket = io();
 

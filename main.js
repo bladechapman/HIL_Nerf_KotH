@@ -48,6 +48,7 @@ io.on('connection', function(socket) {
 // server keeps track of score - broadcasts this to all clients
 var interval = setInterval(emit, 1000);
 
+// handle user input
 rl.on('line', function(line) {
 	var word_arr = line.trim().split(' ');
 	var target_sock = parseInt(word_arr[word_arr.length - 1]);
