@@ -1,0 +1,23 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	color: white;
+}
+
+.button {
+	width: 100%;
+	text-align: center;
+}
+
+#red {
+	-moz-transform: scale(1, -1);
+	-webkit-transform: scale(1, -1);
+	-o-transform: scale(1, -1);
+	-ms-transform: scale(1, -1);
+	transform: scale(1, -1);
+	background-color: red;
+}
+#blue {
+	background-color: blue;
+}
