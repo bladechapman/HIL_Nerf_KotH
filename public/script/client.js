@@ -6,6 +6,7 @@ var client_number;
 var currentdate = new Date();
 
 // emit events to server
+// needs simplification (CSS changes)
 socket.on('client', function(data) {
 	client_number = data;
 	console.log(client_number);
@@ -13,20 +14,34 @@ socket.on('client', function(data) {
 
 	socket.on('authorize', function(res) {
 		if(res == 'accept') {
-			$("#red").click(function() {
+			// $("#red").click(function() {
+			// 	socket.emit('king', 'red');
+			// 	$("#red").addClass("king");
+			// 	$("#red").removeClass("subject");
+			// 	$("#blue").removeClass("king");
+			// 	$("#blue").addClass("subject");
+			// })
+			// $("#blue").click(function() {
+			// 	socket.emit('king', 'blue');
+			// 	$("#blue").addClass("king");
+			// 	$("#blue").removeClass("subject");
+			// 	$("#red").removeClass("king");
+			// 	$("#red").addClass("subject");
+			// })
+			new FastButton(document.getElementById('red'), function() {
 				socket.emit('king', 'red');
 				$("#red").addClass("king");
 				$("#red").removeClass("subject");
 				$("#blue").removeClass("king");
 				$("#blue").addClass("subject");
-			})
-			$("#blue").click(function() {
+			});
+			new FastButton(document.getElementById('blue'), function() {
 				socket.emit('king', 'blue');
 				$("#blue").addClass("king");
 				$("#blue").removeClass("subject");
 				$("#red").removeClass("king");
 				$("#red").addClass("subject");
-			})
+			});
 		}
 	})
 	// respond to server events
@@ -34,5 +49,17 @@ socket.on('client', function(data) {
 	function updateData(data) {
 		$('#red').html(data.red);
 		$('#blue').html(data.blue);
+		if(data.king == 'red') {
+			$("#red").addClass("king");
+			$("#red").removeClass("subject");
+			$("#blue").removeClass("king");
+			$("#blue").addClass("subject");
+		}
+		else if(data.king == 'blue') {
+			$("#blue").addClass("king");
+			$("#blue").removeClass("subject");
+			$("#red").removeClass("king");
+			$("#red").addClass("subject");
+		}
 	}
 })
