@@ -4,10 +4,10 @@ console.log('loaded javascript');
 var socket = io();
 
 // emit events to server
-$("#red").click(function() {
+$("#red").fastButton(function() {
 	socket.emit('king', 'red');
 })
-$("#blue").click(function() {
+$("#blue").fastButton(function() {
 	socket.emit('king', 'blue');
 })
 
